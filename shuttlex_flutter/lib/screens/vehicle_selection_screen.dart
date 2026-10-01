@@ -3,7 +3,7 @@ import 'package:latlong2/latlong.dart';
 import '../constants/theme.dart';
 import '../models/ride.dart';
 import '../widgets/vehicle_card.dart';
-import '../widgets/mapbox_view.dart';
+import '../widgets/isometric_map.dart';
 import 'live_tracking_screen.dart';
 
 class VehicleSelectionScreen extends StatefulWidget {
@@ -89,14 +89,15 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
       ),
       body: Column(
         children: [
-          // Real Mapbox Map View
+          // Isometric Map View
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            child: ShuttleXMapboxView(
+            child: ShuttleXIsometricMap(
               pickup: _pickupCoords,
               destination: _destCoords,
               isBike: _selectedVehicle.isBike,
-              height: 180,
+              height: 190,
+              showObjModel: _selectedVehicle.isBike,
             ),
           ),
 

@@ -22,3 +22,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/models/moto_simple_1.obj
+    - assets/models/moto_simple_1.mtl

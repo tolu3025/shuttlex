@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
 import '../constants/theme.dart';
+import 'isometric_map.dart';
+import 'obj_model_painter.dart';
 
+/// Hero section on the HomeScreen — isometric city map + Ride/Schedule cards.
+/// Matches the mockup: large isometric map view at the top, two quick-action
+/// cards (white "Ride" + black "Plan Ahead Now") at the bottom.
 class HeroRoadPerspective extends StatelessWidget {
   final VoidCallback onTapRide;
   final VoidCallback onTapSchedule;
+
+  // Unilag sample coordinates
+  static const _pickup = LatLng(6.5173, 3.3884);
+  static const _dest = LatLng(6.5160, 3.3930);
 
   const HeroRoadPerspective({
     super.key,
@@ -26,101 +36,111 @@ class HeroRoadPerspective extends StatelessWidget {
           ),
         ],
       ),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Isometric 3D Road Graphic
-          Container(
-            height: 170,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFFDFE2E6), Color(0xFFECEEF1)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+          // ── Isometric map hero ─────────────────────────────────────────────
+          Stack(
+            children: [
+              ShuttleXIsometricMap(
+                pickup: _pickup,
+                destination: _dest,
+                height: 200,
+                isBike: false,
+                showObjModel: false,
               ),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                // Road Trapezoid
-                CustomPaint(
-                  size: const Size(200, 160),
-                  painter: RoadPerspectivePainter(),
-                ),
 
-                // Car illustration badge
-                Positioned(
-                  bottom: 12,
-                  child: Column(
+              // "ShuttleX Live Route" badge top-left
+              Positioned(
+                top: 12,
+                left: 12,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.92),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: ShuttleXColors.border),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.06),
+                        blurRadius: 8,
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const [
+                      CircleAvatar(
+                          radius: 3,
+                          backgroundColor: ShuttleXColors.accentGreen),
+                      SizedBox(width: 6),
+                      Text(
+                        "ShuttleX Live Route",
+                        style: TextStyle(
+                            fontSize: 10, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // OBJ moto model badge — bottom-right of map
+              Positioned(
+                bottom: 10,
+                right: 12,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: ShuttleXColors.border),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.12),
-                              blurRadius: 16,
-                              offset: const Offset(0, 6),
-                            ),
-                          ],
+                      SizedBox(
+                        width: 54,
+                        height: 36,
+                        child: AnimatedObjModel(
+                          assetPath: 'assets/models/moto_simple_1.obj',
+                          width: 54,
+                          height: 36,
+                          fillColor: const Color(0xFFCCCCCC),
+                          strokeColor: const Color(0xFF777777),
+                          animate: true,
                         ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            Icon(Icons.directions_car, color: ShuttleXColors.primary, size: 28),
-                            SizedBox(width: 8),
-                            Text(
-                              "SHUTTLEX",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w900,
-                                fontSize: 11,
-                                letterSpacing: 1.5,
-                              ),
-                            ),
-                          ],
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
+                        "SHUTTLEX",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 10,
+                          letterSpacing: 1.5,
                         ),
                       ),
                     ],
                   ),
                 ),
-
-                // Live status badge
-                Positioned(
-                  top: 12,
-                  left: 12,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.95),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white.withOpacity(0.6)),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        CircleAvatar(radius: 3, backgroundColor: ShuttleXColors.accentGreen),
-                        SizedBox(width: 6),
-                        Text(
-                          "ShuttleX Live Route",
-                          style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          const SizedBox(height: 16),
 
-          // Dual Quick Action Cards (Ride & Schedule)
+          const SizedBox(height: 14),
+
+          // ── Two quick-action cards ─────────────────────────────────────────
           Row(
             children: [
-              // Card 1: Ride (White)
+              // Card 1 — Ride (white)
               Expanded(
                 child: GestureDetector(
                   onTap: onTapRide,
@@ -148,17 +168,24 @@ class HeroRoadPerspective extends StatelessWidget {
                             color: ShuttleXColors.cardBg,
                             borderRadius: BorderRadius.circular(14),
                           ),
-                          child: const Icon(Icons.directions_car_outlined, size: 20, color: ShuttleXColors.primary),
+                          child: const Icon(Icons.directions_car_outlined,
+                              size: 20, color: ShuttleXColors.primary),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 10),
                         const Text(
                           "Ride",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, letterSpacing: -0.3),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -0.3),
                         ),
                         const SizedBox(height: 2),
                         const Text(
                           "Pickup in 3 min",
-                          style: TextStyle(fontSize: 11, color: ShuttleXColors.textSecondary, fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: ShuttleXColors.textSecondary,
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -167,7 +194,7 @@ class HeroRoadPerspective extends StatelessWidget {
               ),
               const SizedBox(width: 12),
 
-              // Card 2: Schedule (Black)
+              // Card 2 — Schedule (black, as per mockup)
               Expanded(
                 child: GestureDetector(
                   onTap: onTapSchedule,
@@ -178,7 +205,7 @@ class HeroRoadPerspective extends StatelessWidget {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.15),
+                          color: Colors.black.withOpacity(0.18),
                           blurRadius: 14,
                           offset: const Offset(0, 4),
                         ),
@@ -191,20 +218,28 @@ class HeroRoadPerspective extends StatelessWidget {
                           width: 36,
                           height: 36,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF222222),
+                            color: const Color(0xFF1A1A1A),
                             borderRadius: BorderRadius.circular(14),
                           ),
-                          child: const Icon(Icons.calendar_month_outlined, size: 20, color: Colors.white),
+                          child: const Icon(Icons.calendar_month_outlined,
+                              size: 20, color: Colors.white),
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 10),
                         const Text(
                           "Schedule",
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: -0.3),
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.white,
+                              letterSpacing: -0.3),
                         ),
                         const SizedBox(height: 2),
                         const Text(
                           "Plan Ahead Now",
-                          style: TextStyle(fontSize: 11, color: Color(0xFF999999), fontWeight: FontWeight.w500),
+                          style: TextStyle(
+                              fontSize: 11,
+                              color: Color(0xFF999999),
+                              fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -219,48 +254,10 @@ class HeroRoadPerspective extends StatelessWidget {
   }
 }
 
+// Keep old RoadPerspectivePainter for compatibility (unused now)
 class RoadPerspectivePainter extends CustomPainter {
   @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = const Color(0xFFCBD1D7)
-      ..style = PaintingStyle.fill;
-
-    // Road trapezoid
-    final path = Path()
-      ..moveTo(size.width * 0.30, 0)
-      ..lineTo(size.width * 0.70, 0)
-      ..lineTo(size.width, size.height)
-      ..lineTo(0, size.height)
-      ..close();
-
-    canvas.drawPath(path, paint);
-
-    // Blue route overlay
-    final routePaint = Paint()
-      ..color = const Color(0xFF3B82F6).withOpacity(0.4)
-      ..style = PaintingStyle.fill;
-
-    final routePath = Path()
-      ..moveTo(size.width * 0.44, 0)
-      ..lineTo(size.width * 0.56, 0)
-      ..lineTo(size.width * 0.65, size.height)
-      ..lineTo(size.width * 0.35, size.height)
-      ..close();
-
-    canvas.drawPath(routePath, routePaint);
-
-    // Center Dashes
-    final dashPaint = Paint()
-      ..color = Colors.white.withOpacity(0.85)
-      ..strokeWidth = 3
-      ..strokeCap = StrokeCap.round;
-
-    canvas.drawLine(Offset(size.width * 0.5, 20), Offset(size.width * 0.5, 45), dashPaint);
-    canvas.drawLine(Offset(size.width * 0.5, 65), Offset(size.width * 0.5, 100), dashPaint);
-    canvas.drawLine(Offset(size.width * 0.5, 120), Offset(size.width * 0.5, 160), dashPaint);
-  }
-
+  void paint(Canvas canvas, Size size) {}
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
