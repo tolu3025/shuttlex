@@ -1,44 +1,47 @@
-# Logs
-logs
+# Miscellaneous
+*.class
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+*.pyc
+*.swp
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
 
-# Flutter & Dart ignores
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Visual Studio Code related
+.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
+.pub-cache/
+**/build/
 build/
-shuttlex_flutter/build/
-shuttlex_flutter/.dart_tool/
-shuttlex_flutter/.flutter-plugins
-shuttlex_flutter/.flutter-plugins-dependencies
-shuttlex_flutter/android/.gradle/
-shuttlex_flutter/android/build/
-shuttlex_flutter/android/local.properties
-*.apk
+android/build/
+android/.gradle/
+**/android/build/
+**/android/.gradle/
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+**/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
 
-# Environment variables (never commit secrets)
+# Environment & Secrets
 .env
 .env.*
 !.env.example
+*.apk

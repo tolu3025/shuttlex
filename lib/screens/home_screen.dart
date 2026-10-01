@@ -3,6 +3,8 @@ import '../constants/theme.dart';
 import '../widgets/hero_road_perspective.dart';
 import 'vehicle_selection_screen.dart';
 import 'design_process_sheet.dart';
+import 'rider_dispatcher_screen.dart';
+import 'wallet_earnings_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -379,8 +381,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _buildNavItem(0, Icons.home_filled, "Home"),
-                    _buildNavItem(1, Icons.directions_car_filled, "Ride"),
-                    _buildNavItem(2, Icons.person, "Profile"),
+                    _buildNavItem(1, Icons.two_wheeler, "Ride"),
+                    _buildNavItem(2, Icons.record_voice_over, "Dispatch"),
+                    _buildNavItem(3, Icons.account_balance_wallet, "Wallet"),
                   ],
                 ),
               ),
@@ -399,7 +402,15 @@ class _HomeScreenState extends State<HomeScreen> {
         if (index == 1) {
           _openRideSelection();
         } else if (index == 2) {
-          _showDesignProcess();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const RiderDispatcherScreen()),
+          );
+        } else if (index == 3) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const WalletEarningsScreen()),
+          );
         }
       },
       child: AnimatedContainer(

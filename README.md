@@ -1,32 +1,61 @@
-# React + TypeScript + Vite
+# ShuttleX — Smart Campus Ride-Hailing & AI Voice Dispatcher (Flutter)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+[![Build ShuttleX Flutter APK](https://github.com/tolu3025/shuttlex/actions/workflows/build_flutter_apk.yml/badge.svg)](https://github.com/tolu3025/shuttlex/actions/workflows/build_flutter_apk.yml)
 
-Currently, two official plugins are available:
+**ShuttleX** is a production-ready, AI-powered campus motorcycle ride-hailing mobile application built with **Flutter & Dart**, designed for university students and campus motorcycle riders in Nigeria.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 🚀 Key Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Student Ride Booking**: Instant pickup and destination selection across campus landmarks with live route estimation and Nigerian Naira fares (₦).
+- **Interactive Mapbox & Isometric City Maps**: Real-time GPS rider tracking, pickup pins, and custom 3D OBJ motorcycle model integration.
+- **Rider AI Voice Dispatcher**: Voice-first digital dispatcher communicating ride requests in **English**, **Nigerian Pidgin**, and **Yorubá**, automatically launching Google Maps turn-by-turn navigation on acceptance.
+- **Campus Wallet & Paystack Integration**: Real-time balance ledger, fund top-up, trip debit history, and driver earnings.
+- **Resilient Supabase Backend**: Integrated with Supabase PostgreSQL, Authentication, and Realtime with local campus landmark fallback.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🎨 Visual Identity
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+- **Primary Green**: `#0B6B4B`
+- **Deep Forest**: `#071F17`
+- **Main Background**: `#F7F8F5`
+- **Soft Green**: `#DFF5EA`
+- **Accent Amber**: `#F4B740`
+- **Typography**: Google Fonts (Inter)
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (v3.24+)
+- Android Studio / Android SDK (API 34)
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/tolu3025/shuttlex.git
+cd shuttlex
+
+# Get Flutter packages
+flutter pub get
+
+# Run on connected device / emulator
+flutter run
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### Build Android Release APK
+```bash
+flutter build apk --release
+```
+The generated APK will be available at `build/app/outputs/flutter-apk/app-release.apk`.
+
+---
+
+## 🗄️ Database Setup (Supabase)
+The complete PostgreSQL migration schema is located in:
+`supabase/schema.sql`
+
+Run this script in your Supabase SQL editor to provision all required tables (`profiles`, `campus_locations`, `rides`, `bikes`, `wallets`, `voice_agent_events`).

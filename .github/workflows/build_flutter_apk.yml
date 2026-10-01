@@ -26,15 +26,13 @@ jobs:
           cache: true
 
       - name: Get Flutter dependencies
-        working-directory: ./shuttlex_flutter
         run: flutter pub get
 
       - name: Build Android APK
-        working-directory: ./shuttlex_flutter
         run: flutter build apk --release
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ShuttleX-Release-APK
-          path: shuttlex_flutter/build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
