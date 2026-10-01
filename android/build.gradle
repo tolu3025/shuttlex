@@ -7,7 +7,19 @@ allprojects {
 
 subprojects {
     project.buildDir = layout.buildDirectory.dir("${rootProject.layout.buildDirectory.get()}/${project.name}").get().asFile
-    project.evaluationDependsOn(':app')
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.extensions.findByName("android") != null) {
+            project.android {
+                compileSdk = 34
+                if (namespace == null || namespace.isEmpty()) {
+                    namespace = "com.shuttlex.plugin.${project.name.replace('-', '_')}"
+                }
+            }
+        }
+    }
 }
 
 tasks.register("clean", Delete) {
