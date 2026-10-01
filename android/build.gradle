@@ -3,38 +3,27 @@ allprojects {
         google()
         mavenCentral()
     }
-}
-
-subprojects { project ->
-    project.buildDir = layout.buildDirectory.dir("${rootProject.layout.buildDirectory.get()}/${project.name}").get().asFile
-
-    // Provide flutter extension properties on project.ext for plugins evaluating flutter.compileSdkVersion
-    project.ext.flutter = [
+    // Provide flutter extension fallback for subproject plugins evaluating flutter.compileSdkVersion
+    project.ext.set("flutter", [
         compileSdkVersion: 34,
         minSdkVersion: 21,
         targetSdkVersion: 34,
         ndkVersion: "27.0.12077973"
-    ]
-
-    project.plugins.whenPluginAdded { plugin ->
-        if (plugin.class.name.startsWith("com.android.build.gradle")) {
-            project.android {
-                compileSdk = 34
-            }
-            try {
-                project.android.extensions.extraProperties.set("flutter", project.ext.flutter)
-            } catch (Exception ignored) {}
-        }
-    }
+    ])
 }
 
 subprojects {
-    afterEvaluate { project ->
-        if (project.extensions.findByName("android") != null) {
-            project.android {
+    project.buildDir = layout.buildDirectory.dir("${rootProject.layout.buildDirectory.get()}/${project.name}").get().asFile
+    project.evaluationDependsOn(':app')
+}
+
+subprojects {
+    afterEvaluate { p ->
+        if (p.plugins.hasPlugin("com.android.application") || p.plugins.hasPlugin("com.android.library")) {
+            p.android {
                 compileSdk = 34
                 if (namespace == null || namespace.isEmpty()) {
-                    namespace = "com.shuttlex.plugin.${project.name.replace('-', '_')}"
+                    namespace = "com.shuttlex.plugin.${p.name.replace('-', '_')}"
                 }
             }
         }
