@@ -47,7 +47,7 @@ Write-Host "`n--> Fetching Flutter packages..." -ForegroundColor Cyan
 & $flutterCmd pub get
 
 Write-Host "`n--> Compiling Release APK with Mapbox Streets, Uber Splash, and Auth..." -ForegroundColor Cyan
-& $flutterCmd build apk --release
+& $flutterCmd build apk --release --no-tree-shake-icons --android-skip-build-dependency-validation
 
 $outputApk = "c:\Users\Damilola\Downloads\shuttlex\build\app\outputs\flutter-apk\app-release.apk"
 if (Test-Path $outputApk) {
