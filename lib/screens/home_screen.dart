@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../constants/theme.dart';
 import '../widgets/hero_road_perspective.dart';
 import 'vehicle_selection_screen.dart';
-import 'design_process_sheet.dart';
 import 'rider_dispatcher_screen.dart';
 import 'wallet_earnings_screen.dart';
 
@@ -42,12 +41,123 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void _showDesignProcess() {
+  void _showNavigationMenu() {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => const DesignProcessSheet(),
+      builder: (_) => Container(
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+        ),
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: ShuttleXColors.border,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            // Profile Card
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 28,
+                  backgroundColor: ShuttleXColors.primary.withOpacity(0.1),
+                  child: const Text("🎓", style: TextStyle(fontSize: 28)),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Damilola O.",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+                      ),
+                      const SizedBox(height: 2),
+                      Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                            decoration: BoxDecoration(
+                              color: ShuttleXColors.accent.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: const Text(
+                              "Verified Student",
+                              style: TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w700,
+                                color: ShuttleXColors.primary,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Icon(Icons.star, size: 14, color: Colors.amber),
+                          const Text(
+                            " 4.98",
+                            style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            const Divider(),
+            // Menu Items
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.account_balance_wallet, color: ShuttleXColors.primary),
+              title: const Text("Campus Wallet & Payments", style: TextStyle(fontWeight: FontWeight.w700)),
+              subtitle: const Text("₦14,250 Available Balance", style: TextStyle(fontSize: 12)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const WalletEarningsScreen()));
+              },
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.record_voice_over, color: ShuttleXColors.accent),
+              title: const Text("Switch to Rider Mode", style: TextStyle(fontWeight: FontWeight.w700)),
+              subtitle: const Text("AI Voice Dispatcher & Orders", style: TextStyle(fontSize: 12)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (_) => const RiderDispatcherScreen()));
+              },
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.history, color: ShuttleXColors.primary),
+              title: const Text("Ride History", style: TextStyle(fontWeight: FontWeight.w700)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.security, color: ShuttleXColors.primary),
+              title: const Text("Safety & Campus Emergency", style: TextStyle(fontWeight: FontWeight.w700)),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () => Navigator.pop(context),
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+      ),
     );
   }
 
@@ -69,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       // Hamburger Menu
                       GestureDetector(
-                        onTap: _showDesignProcess,
+                        onTap: _showNavigationMenu,
                         child: Container(
                           width: 44,
                           height: 44,
