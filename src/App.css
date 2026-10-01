@@ -1,0 +1,15 @@
+/* App custom animations and keyframes */
+@keyframes orbPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(11, 107, 75, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 20px rgba(11, 107, 75, 0);
+  }
+}
+
+.orb-pulse {
+  animation: orbPulse 2s infinite ease-in-out;
+}

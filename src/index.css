@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary: #010101;
+    --dark: #010101;
+    --light-bg: #FAFAFA;
+    --surface: #FFFFFF;
+    --white: #FFFFFF;
+    --gray-muted: #666666;
+    --gray-light: #F5F5F7;
+    --border: #EEEEEE;
+    --accent: #010101;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FAFAFA;
+    color: #010101;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.015em;
+  }
+
+  h1, h2, h3, h4, .font-lufga {
+    font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
+    letter-spacing: -0.03em;
+  }
+
+  #root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Glassmorphic & Shadow Design Tokens */
+.shuttlex-shadow-sm {
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.shuttlex-shadow-lg {
+  box-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+}
+
+.shuttlex-shadow-pill {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Custom Leaflet Map styling for minimalist grayscale isometric style */
+.leaflet-container {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  border-radius: 1.75rem;
+  background-color: #f1f3f5 !important;
+}
+
+/* Grayscale map tiles for the sleek UI look */
+.clean-map-tiles {
+  filter: grayscale(85%) contrast(105%) brightness(102%);
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 16px;
+  padding: 4px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid #EEEEEE;
+}
+
+/* Custom Smooth Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #01010125;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #010101;
+}
+
+/* Animated Pulse & Floating effects */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float {
+  animation: floatSlow 3s ease-in-out infinite;
+}
