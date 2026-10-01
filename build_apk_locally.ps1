@@ -19,13 +19,17 @@ $env:PATH = "$env:ANDROID_HOME\platform-tools;" + $env:PATH
 Write-Host "[OK] ANDROID_HOME set to: $env:ANDROID_HOME" -ForegroundColor Green
 
 # 3. Locate Flutter Executable
-$puroFlutter = Get-ChildItem -Path "C:\Users\Damilola\.puro" -Filter "flutter.bat" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
-if ($puroFlutter) {
-    $flutterCmd = $puroFlutter.FullName
+if (Test-Path "C:\Users\Damilola\flutter\bin\flutter.bat") {
+    $flutterCmd = "C:\Users\Damilola\flutter\bin\flutter.bat"
 } else {
-    $found = Get-Command flutter -ErrorAction SilentlyContinue
-    if ($found) {
-        $flutterCmd = $found.Source
+    $puroFlutter = Get-ChildItem -Path "C:\Users\Damilola\.puro" -Filter "flutter.bat" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($puroFlutter) {
+        $flutterCmd = $puroFlutter.FullName
+    } else {
+        $found = Get-Command flutter -ErrorAction SilentlyContinue
+        if ($found) {
+            $flutterCmd = $found.Source
+        }
     }
 }
 
