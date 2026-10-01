@@ -3,6 +3,7 @@ import 'package:latlong2/latlong.dart';
 import '../constants/theme.dart';
 import '../models/ride.dart';
 import '../widgets/isometric_map.dart';
+import '../widgets/interactive_mapbox_map.dart';
 
 class LiveTrackingScreen extends StatefulWidget {
   final VehicleOption vehicle;
@@ -22,6 +23,7 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen>
   final LatLng _pickupCoords = const LatLng(6.5173, 3.3884);
   final LatLng _destCoords = const LatLng(6.5160, 3.3930);
   final LatLng _riderCoords = const LatLng(6.5178, 3.3875);
+  bool _useMapboxTiles = true;
 
   late AnimationController _slideCtrl;
   late Animation<Offset> _slideAnim;
@@ -131,15 +133,66 @@ class _LiveTrackingScreenState extends State<LiveTrackingScreen>
       ),
       body: Stack(
         children: [
-          // ── Full-screen isometric map ──────────────────────────────────────
+          // ── Map View (Mapbox HD or Isometric 3D) ───────────────────────────
           Positioned.fill(
-            child: ShuttleXIsometricMap(
-              pickup: _pickupCoords,
-              destination: _destCoords,
-              vehicleLocation: _riderCoords,
-              isBike: isBike,
-              height: double.infinity,
-              showObjModel: isBike,
+            child: _useMapboxTiles
+                ? InteractiveMapboxMap(
+                    pickup: _pickupCoords,
+                    destination: _destCoords,
+                    riderLocation: _riderCoords,
+                    isTracking: true,
+                    height: double.infinity,
+                  )
+                : ShuttleXIsometricMap(
+                    pickup: _pickupCoords,
+                    destination: _destCoords,
+                    vehicleLocation: _riderCoords,
+                    isBike: isBike,
+                    height: double.infinity,
+                    showObjModel: isBike,
+                  ),
+          ),
+
+          // ── Map Layer Floating Toggle ──────────────────────────────────────
+          Positioned(
+            top: 100,
+            right: 16,
+            child: GestureDetector(
+              onTap: () => setState(() => _useMapboxTiles = !_useMapboxTiles),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: ShuttleXColors.border),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.12),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      _useMapboxTiles ? Icons.view_in_ar : Icons.map,
+                      size: 14,
+                      color: ShuttleXColors.primary,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      _useMapboxTiles ? "3D Mode" : "Mapbox HD",
+                      style: const TextStyle(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w900,
+                        color: ShuttleXColors.primary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
 

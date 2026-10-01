@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants/theme.dart';
 import '../widgets/isometric_map.dart';
+import '../widgets/interactive_mapbox_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class RiderDispatcherScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class _RiderDispatcherScreenState extends State<RiderDispatcherScreen>
   String _selectedLanguage = 'en'; // 'en', 'pidgin', 'yo'
   bool _hasIncomingOffer = true;
   bool _isAccepted = false;
+  bool _useMapboxTiles = true;
   late AnimationController _pulseController;
 
   final Map<String, Map<String, String>> _voicePhrases = {
@@ -223,13 +225,21 @@ class _RiderDispatcherScreenState extends State<RiderDispatcherScreen>
               Stack(
                 alignment: Alignment.center,
                 children: [
-                  ShuttleXIsometricMap(
-                    pickup: const LatLng(6.5173, 3.3884),
-                    destination: const LatLng(6.5160, 3.3930),
-                    isBike: true,
-                    height: 180,
-                    showObjModel: true,
-                  ),
+                  _useMapboxTiles
+                      ? const InteractiveMapboxMap(
+                          pickup: LatLng(6.5173, 3.3884),
+                          destination: LatLng(6.5160, 3.3930),
+                          riderLocation: LatLng(6.5178, 3.3875),
+                          isTracking: true,
+                          height: 180,
+                        )
+                      : ShuttleXIsometricMap(
+                          pickup: const LatLng(6.5173, 3.3884),
+                          destination: const LatLng(6.5160, 3.3930),
+                          isBike: true,
+                          height: 180,
+                          showObjModel: true,
+                        ),
                   if (_isOnline && _hasIncomingOffer)
                     Positioned(
                       bottom: 12,

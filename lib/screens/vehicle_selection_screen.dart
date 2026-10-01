@@ -4,6 +4,7 @@ import '../constants/theme.dart';
 import '../models/ride.dart';
 import '../widgets/vehicle_card.dart';
 import '../widgets/isometric_map.dart';
+import '../widgets/interactive_mapbox_map.dart';
 import 'live_tracking_screen.dart';
 
 class VehicleSelectionScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class VehicleSelectionScreen extends StatefulWidget {
 class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
   String _selectedFilter = 'Recommended';
   VehicleOption _selectedVehicle = kDefaultVehicles.first;
+  bool _useMapboxTiles = true;
 
   // Unilag Campus Sample coordinates for route
   final LatLng _pickupCoords = const LatLng(6.5173, 3.3884); // Main Gate
@@ -89,15 +91,66 @@ class _VehicleSelectionScreenState extends State<VehicleSelectionScreen> {
       ),
       body: Column(
         children: [
-          // Isometric Map View
+          // Map View with Mapbox Streets & 3D Toggle
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            child: ShuttleXIsometricMap(
-              pickup: _pickupCoords,
-              destination: _destCoords,
-              isBike: _selectedVehicle.isBike,
-              height: 190,
-              showObjModel: _selectedVehicle.isBike,
+            child: Column(
+              children: [
+                _useMapboxTiles
+                    ? InteractiveMapboxMap(
+                        pickup: _pickupCoords,
+                        destination: _destCoords,
+                        height: 190,
+                        nearbyBikes: const [
+                          LatLng(6.5170, 3.3888),
+                          LatLng(6.5179, 3.3879),
+                          LatLng(6.5165, 3.3910),
+                        ],
+                      )
+                    : ShuttleXIsometricMap(
+                        pickup: _pickupCoords,
+                        destination: _destCoords,
+                        isBike: _selectedVehicle.isBike,
+                        height: 190,
+                        showObjModel: _selectedVehicle.isBike,
+                      ),
+                const SizedBox(height: 6),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () => setState(() => _useMapboxTiles = !_useMapboxTiles),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: ShuttleXColors.border),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              _useMapboxTiles ? Icons.view_in_ar : Icons.map,
+                              size: 12,
+                              color: ShuttleXColors.primary,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              _useMapboxTiles ? "Switch to 3D OBJ View" : "Switch to Mapbox Streets",
+                              style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: ShuttleXColors.primary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
 

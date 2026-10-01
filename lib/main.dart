@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'constants/theme.dart';
 import 'services/supabase_service.dart';
+import 'screens/splash_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() async {
@@ -30,7 +31,7 @@ class ShuttleXApp extends StatelessWidget {
       title: 'ShuttleX',
       debugShowCheckedModeBanner: false,
       theme: ShuttleXTheme.lightTheme,
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
