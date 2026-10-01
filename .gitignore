@@ -33,6 +33,10 @@ shuttlex_flutter/build/
 shuttlex_flutter/.dart_tool/
 shuttlex_flutter/.flutter-plugins
 shuttlex_flutter/.flutter-plugins-dependencies
+shuttlex_flutter/android/.gradle/
+shuttlex_flutter/android/build/
+shuttlex_flutter/android/local.properties
+*.apk
 
 # Environment variables (never commit secrets)
 .env
