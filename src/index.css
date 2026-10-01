@@ -2,31 +2,35 @@
 
 @layer base {
   :root {
-    --primary: #010101;
-    --dark: #010101;
-    --light-bg: #FAFAFA;
+    --primary: #0B6B4B;
+    --primary-green: #0B6B4B;
+    --deep-forest: #071F17;
+    --main-bg: #F7F8F5;
     --surface: #FFFFFF;
     --white: #FFFFFF;
-    --gray-muted: #666666;
-    --gray-light: #F5F5F7;
-    --border: #EEEEEE;
-    --accent: #010101;
+    --soft-green: #DFF5EA;
+    --accent-amber: #F4B740;
+    --error-red: #D94A4A;
+    --primary-text: #14211B;
+    --secondary-text: #738078;
+    --border: #E5EAE6;
   }
 
   body {
-    font-family: 'Plus Jakarta Sans', 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #FAFAFA;
-    color: #010101;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #F7F8F5;
+    color: #14211B;
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.012em;
   }
 
-  h1, h2, h3, h4, .font-lufga {
-    font-family: 'Plus Jakarta Sans', 'Outfit', sans-serif;
-    letter-spacing: -0.03em;
+  h1, h2, h3, h4 {
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.025em;
+    font-weight: 800;
   }
 
   #root {
@@ -38,34 +42,29 @@
 
 /* Glassmorphic & Shadow Design Tokens */
 .shuttlex-shadow-sm {
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px -2px rgba(11, 107, 75, 0.06), 0 2px 6px -1px rgba(7, 31, 23, 0.04);
 }
 
 .shuttlex-shadow-lg {
-  box-shadow: 0 14px 40px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 16px 36px -4px rgba(7, 31, 23, 0.09), 0 4px 12px -2px rgba(11, 107, 75, 0.05);
 }
 
 .shuttlex-shadow-pill {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 8px 24px rgba(11, 107, 75, 0.12);
 }
 
-/* Custom Leaflet Map styling for minimalist grayscale isometric style */
+/* Custom Leaflet Map styling */
 .leaflet-container {
-  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   border-radius: 1.75rem;
-  background-color: #f1f3f5 !important;
-}
-
-/* Grayscale map tiles for the sleek UI look */
-.clean-map-tiles {
-  filter: grayscale(85%) contrast(105%) brightness(102%);
+  background-color: #F7F8F5 !important;
 }
 
 .custom-popup .leaflet-popup-content-wrapper {
   border-radius: 16px;
   padding: 4px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid #EEEEEE;
+  box-shadow: 0 10px 30px rgba(7, 31, 23, 0.12);
+  border: 1px solid #E5EAE6;
 }
 
 /* Custom Smooth Scrollbar */
@@ -77,11 +76,11 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #01010125;
+  background: #0B6B4B30;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #010101;
+  background: #0B6B4B;
 }
 
 /* Animated Pulse & Floating effects */

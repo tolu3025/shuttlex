@@ -298,10 +298,12 @@ class _ShuttleXIsometricMapState extends State<ShuttleXIsometricMap>
               ),
               children: [
                 TileLayer(
-                  urlTemplate:
-                      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  urlTemplate: const String.fromEnvironment('MAPBOX_ACCESS_TOKEN').isNotEmpty
+                      ? 'https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/256/{z}/{x}/{y}@2x?access_token=${const String.fromEnvironment('MAPBOX_ACCESS_TOKEN')}'
+                      : 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                   userAgentPackageName: 'com.shuttlex.app',
-                  tileBuilder: _whiteTileBuilder,
+                  maxZoom: 19,
+                  tileSize: 256,
                 ),
               ],
             ),

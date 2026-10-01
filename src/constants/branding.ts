@@ -5,42 +5,48 @@
 
 export const BRANDING = {
   appName: 'ShuttleX',
-  companyName: 'ShuttleX Inc.',
-  tagline: 'Delivers Fast, Safe Rides With Real-Time Tracking And Flexible Booking',
+  companyName: 'ShuttleX Mobility Inc.',
+  tagline: 'Your Campus. Your Ride.',
+  supportingStatement: 'Campus rides, made simpler with an AI-powered voice dispatcher.',
   heroHeadline: {
-    prefix: 'Go When',
-    main: 'You Want',
-    highlight: 'Anywhere.'
+    prefix: 'Where are you',
+    main: 'going on',
+    highlight: 'campus today?'
   },
-  campusName: 'Green Park (UK)',
+  campusName: 'University Campus (UNILAG / OAU / UI)',
   currencySymbol: '₦',
   currencyCode: 'NGN',
-  supportEmail: 'support@shuttlex.io',
+  supportEmail: 'support@shuttlex.ng',
   
-  // Design Tokens (Lufga & Monochrome Design System)
+  // Official ShuttleX Color Palette
   colors: {
-    primary: '#010101',         // Deep Pitch Black
-    secondary: '#1A1A1A',       // Rich Charcoal
-    background: '#FAFAFA',      // Ultra Clean Off-White
-    surface: '#FFFFFF',         // Pure White
-    textPrimary: '#010101',     // Main Text
-    textSecondary: '#666666',   // Black Gray Muted
-    textLight: '#999999',       // Light Gray
-    border: '#EEEEEE',          // Subtle Border
-    borderDark: '#222222',
-    accent: '#010101',          // Primary Action
-    warning: '#F59E0B',
-    danger: '#EF4444',
-    success: '#10B981',
-    gray100: '#F5F5F7',
-    gray200: '#E5E7EB',
-    gray400: '#9CA3AF',
-    gray800: '#1F2937',
+    primaryGreen: '#0B6B4B',     // Primary Green
+    deepForest: '#071F17',       // Deep Forest
+    mainBackground: '#F7F8F5',   // Main Background
+    white: '#FFFFFF',            // White
+    softGreen: '#DFF5EA',        // Soft Green
+    accentAmber: '#F4B740',      // Accent Amber
+    errorRed: '#D94A4A',         // Error Red
+    primaryText: '#14211B',      // Primary Text
+    secondaryText: '#738078',    // Secondary Text
+    border: '#E5EAE6',           // Borders
+    
+    // Semantic mappings
+    primary: '#0B6B4B',
+    secondary: '#071F17',
+    background: '#F7F8F5',
+    surface: '#FFFFFF',
+    textPrimary: '#14211B',
+    textSecondary: '#738078',
+    accent: '#0B6B4B',
+    warning: '#F4B740',
+    danger: '#D94A4A',
+    success: '#0B6B4B',
   }
 };
 
 export const ROLE_LABELS = {
-  STUDENT: 'Passenger',
-  RIDER: 'ShuttleX Driver',
-  ADMIN: 'System Admin'
+  STUDENT: 'Student',
+  RIDER: 'Rider (Voice Agent)',
+  ADMIN: 'Admin'
 };
