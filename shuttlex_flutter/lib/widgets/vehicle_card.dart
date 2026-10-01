@@ -131,7 +131,7 @@ class VehicleCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "\$${vehicle.price.toStringAsFixed(2)}",
+                  "₦${vehicle.price.toStringAsFixed(0)}",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w900,
