@@ -3,18 +3,20 @@ allprojects {
         google()
         mavenCentral()
     }
-    // Provide flutter extension fallback for subproject plugins evaluating flutter.compileSdkVersion
-    project.ext.set("flutter", [
-        compileSdkVersion: 34,
-        minSdkVersion: 21,
-        targetSdkVersion: 34,
-        ndkVersion: "27.0.12077973"
-    ])
 }
 
-subprojects {
+subprojects { project ->
     project.buildDir = layout.buildDirectory.dir("${rootProject.layout.buildDirectory.get()}/${project.name}").get().asFile
-    project.evaluationDependsOn(':app')
+    if (project.name != "app") {
+        project.evaluationDependsOn(':app')
+        // Provide flutter extension fallback for subproject plugins evaluating flutter.compileSdkVersion
+        project.ext.set("flutter", [
+            compileSdkVersion: 34,
+            minSdkVersion: 21,
+            targetSdkVersion: 34,
+            ndkVersion: "27.0.12077973"
+        ])
+    }
 }
 
 subprojects {
